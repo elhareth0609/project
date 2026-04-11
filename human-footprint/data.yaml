@@ -1,0 +1,13 @@
+train: ./train/images
+val: ./valid/images
+test: ./test/images
+
+nc: 4
+names: ['animal_foot_print', 'human', 'human_foot_print', 'vehicle_track']
+
+roboflow:
+  workspace: drones-lhbge
+  project: drones-lhbge
+  version: dataset
+  license: Private
+  url: https://app.roboflow.com/drones-lhbge/drones-lhbge/dataset
