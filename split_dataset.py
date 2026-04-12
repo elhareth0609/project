@@ -141,7 +141,7 @@ def split_dataset(dataset_path, train_ratio=0.70, valid_ratio=0.15, test_ratio=0
 
 def main():
     """Split both datasets"""
-    project_root = Path("c:/Users/elhareth/Downloads/project")
+    project_root = Path("/kaggle/working/project")
     
     datasets = ['human-footprint', 'vehicle']
     results = {}

@@ -109,7 +109,7 @@ class PipelineOrchestrator:
 
 
 def main():
-    project_root = Path("c:/Users/elhareth/Downloads/project")
+    project_root = Path("/kaggle/working/project")
     orchestrator = PipelineOrchestrator(project_root)
     
     success = orchestrator.run_pipeline()

@@ -208,7 +208,7 @@ Target Metrics:
 
 
 def main():
-    project_root = Path("c:/Users/elhareth/Downloads/project")
+    project_root = Path("/kaggle/working/project")
     visualizer = ResultsVisualizer(project_root)
     
     visualizer.create_metrics_visualization()

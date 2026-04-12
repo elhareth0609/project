@@ -166,7 +166,7 @@ class MetricsGenerator:
 
 
 def main():
-    project_root = Path("c:/Users/elhareth/Downloads/project")
+    project_root = Path("/kaggle/working/project")
     results_dir = project_root / 'training_results'
     
     # Load model info

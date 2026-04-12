@@ -130,7 +130,7 @@ def main():
     print(" "*20 + "YOLOV8 DETECTION MODEL TRAINER")
     print("="*70 + "\n")
     
-    project_root = Path("c:/Users/elhareth/Downloads/project")
+    project_root = Path("/kaggle/working/project")
     trainer = ModelTrainer(project_root)
     
     datasets = {
