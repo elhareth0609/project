@@ -26,7 +26,7 @@ class ModelTrainer:
         print(log_message)
         self.training_log.append(log_message)
     
-    def train_model(self, dataset_name, data_yaml_path, epochs=50, imgsz=640, device=0):
+    def train_model(self, dataset_name, data_yaml_path, epochs=100, imgsz=1280, device=0):
         """
         Train YOLOv8 model
         
@@ -47,9 +47,9 @@ class ModelTrainer:
             return None
         
         try:
-            # Initialize YOLOv8 model (nano for small datasets)
+            # Initialize YOLOv8 model (medium model for better accuracy)
             self.log_event(f"📦 Loading YOLOv8 model...")
-            model = YOLO('yolov8n.pt')  # nano model for smaller dataset
+            model = YOLO('yolov8m.pt')  # medium model for better accuracy with more data
             
             # Check GPU availability
             if device != -1:
@@ -64,7 +64,7 @@ class ModelTrainer:
             # Create run name with timestamp
             run_name = f"{dataset_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
             
-            # Train model
+            # Train model with optimized parameters
             self.log_event(f"🚀 Training started ({epochs} epochs, imgsz={imgsz})...")
             results = model.train(
                 data=str(data_yaml_path),
@@ -74,21 +74,23 @@ class ModelTrainer:
                 project=str(self.results_dir / 'models'),
                 name=run_name,
                 save=True,
-                patience=5,  # Early stopping
-                batch=16,
+                patience=0,  # No early stopping - train full epochs
+                batch=8,  # Reduced for larger model stability
                 workers=4,
                 verbose=True,
                 augment=True,
                 mosaic=1.0,
                 flipud=0.5,
                 fliplr=0.5,
-                degrees=10,
-                translate=0.1,
-                scale=0.5,
-                perspective=0.0,
+                degrees=15,  # More rotation
+                translate=0.15,  # More translation
+                scale=0.6,  # More scale variation
+                perspective=0.1,  # Add perspective changes
                 hsv_h=0.015,
                 hsv_s=0.7,
                 hsv_v=0.4,
+                lr0=0.001,  # Lower learning rate for stability
+                lrf=0.0001,  # Final learning rate
             )
             
             self.log_event(f"\n✅ Training completed!")
@@ -140,14 +142,14 @@ def main():
     
     trained_models = {}
     
-    # Train both models
+    # Train both models with optimized parameters
     for dataset_name, data_yaml in datasets.items():
         if data_yaml.exists():
             result = trainer.train_model(
                 dataset_name=dataset_name,
                 data_yaml_path=data_yaml,
-                epochs=50,
-                imgsz=640,
+                epochs=100,  # Extended training
+                imgsz=1280,  # Higher resolution
                 device=0 if torch.cuda.is_available() else -1
             )
             if result:
