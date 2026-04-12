@@ -161,16 +161,25 @@ class ResultsVisualizer:
             for metrics in metrics_list:
                 f.write(f"Dataset: {metrics['dataset']}\n")
                 f.write(f"{'─'*70}\n")
-                f.write(f"  mAP@50 (Mean Average Precision at IoU=0.50):\n")
-                f.write(f"    └─ {metrics.get('mAP50', 'N/A'):.4f}\n\n")
+                # Helper function to safely format metrics
+                def format_metric(value):
+                    if value == 'N/A' or value is None:
+                        return 'N/A'
+                    try:
+                        return f"{float(value):.4f}"
+                    except (ValueError, TypeError):
+                        return str(value)
+                
+                f.write(f"  mAP@50 (Mean Average Precision):\n")
+                f.write(f"    └─ {format_metric(metrics.get('mAP50', 'N/A'))}\n\n")
                 f.write(f"  mAP@50:95 (Mean Average Precision across IoU thresholds):\n")
-                f.write(f"    └─ {metrics.get('mAP', 'N/A'):.4f}\n\n")
+                f.write(f"    └─ {format_metric(metrics.get('mAP', 'N/A'))}\n\n")
                 f.write(f"  Precision (Positive Predictive Value):\n")
-                f.write(f"    └─ {metrics.get('precision', 'N/A'):.4f}\n\n")
+                f.write(f"    └─ {format_metric(metrics.get('precision', 'N/A'))}\n\n")
                 f.write(f"  Recall (True Positive Rate):\n")
-                f.write(f"    └─ {metrics.get('recall', 'N/A'):.4f}\n\n")
+                f.write(f"    └─ {format_metric(metrics.get('recall', 'N/A'))}\n\n")
                 f.write(f"  F1-Score (Harmonic Mean of Precision and Recall):\n")
-                f.write(f"    └─ {metrics.get('f1_score', 'N/A'):.4f}\n\n")
+                f.write(f"    └─ {format_metric(metrics.get('f1_score', 'N/A'))}\n\n")
                 f.write(f"{'─'*70}\n\n")
             
             f.write("\nMETRICS EXPLANATION\n")
