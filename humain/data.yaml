@@ -1,0 +1,13 @@
+train: ./train/images
+val: ./valid/images
+test: ./test/images
+
+nc: 1
+names: ['human_foot_print']
+
+roboflow:
+  workspace: drone-ubvg3
+  project: drone-ubvg3
+  version: dataset
+  license: Private
+  url: https://app.roboflow.com/drone-ubvg3/drone-ubvg3/dataset
