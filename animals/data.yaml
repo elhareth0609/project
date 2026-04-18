@@ -3,7 +3,7 @@ val: ./valid/images
 test: ./test/images
 
 nc: 1
-names: ['animal_foot_print']
+names: ['animal_footprint']
 
 roboflow:
   workspace: drone-ubvg3

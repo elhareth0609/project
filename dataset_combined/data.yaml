@@ -1,4 +1,3 @@
-path: C:\Users\elhareth\Downloads\project\dataset_combined
 train: train/images
 val: val/images
 test: test/images
